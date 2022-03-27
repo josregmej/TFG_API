@@ -1,6 +1,7 @@
 package com.tfg.sotocafe.services;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.modelmapper.ModelMapper;
@@ -34,9 +35,9 @@ public class UserService {
 				.username(user.getUsername())
 				.build();
 		Set<Rol> roles = new HashSet<Rol>();
-		Rol rol = Rol.builder().nombre("USER").build();
-		roles.add(rol);
-		rolRepository.save(rol);
+		Optional<Rol> rol = rolRepository.findByNombre("ROLE_USER");
+		roles.add(rol.get());
+		rolRepository.save(rol.get());
 		newUser.setRoles(roles);
 		userRepository.save(newUser);
 		return modelMapper.map(newUser, UserRest.class);

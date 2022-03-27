@@ -13,14 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Entity
-@Table(name = "USERS", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }),
-		@UniqueConstraint(columnNames = { "email" }),@UniqueConstraint(columnNames = { "dni" })})
+@Table(name = "users")
 @Data
 @Builder
 public class User implements Serializable{
@@ -43,7 +41,7 @@ public class User implements Serializable{
 	private String email;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "id"), 
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "ROL_ID", referencedColumnName = "id"))
 	private Set<Rol> roles;
 	
