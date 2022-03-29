@@ -15,19 +15,17 @@ public class UserRest implements Serializable{/**
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
-	private String nombre;
 	private String username;
+	private String nombre;
 	private String password;
 	private String dni;
 	private String direccion;
 	private String telefono;
 	private String email;
 	
-	public UserRest(Long id, String nombre, String username, String password, String dni, String direccion,
+	public UserRest(String nombre, String username, String password, String dni, String direccion,
 			String telefono, String email) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.username = username;
 		this.password = password;

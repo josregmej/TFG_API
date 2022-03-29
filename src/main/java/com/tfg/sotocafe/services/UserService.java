@@ -1,12 +1,13 @@
 package com.tfg.sotocafe.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import com.tfg.sotocafe.repositories.UserRepository;
 @Service
 public class UserService {
 
+
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -28,11 +30,15 @@ public class UserService {
 	private ModelMapper modelMapper = new ModelMapper();
 	
 	@Transactional
-	public UserRest saveUser(UserRest user) throws DataAccessException {
-		User newUser = User.builder().nombre(user.getNombre()).email(user.getEmail())
-				.direccion(user.getDireccion()).dni(user.getDni())
+	public UserRest saveUser(UserRest user) {
+		User newUser = User.builder()
+				.nombre(user.getNombre())
+				.email(user.getEmail())
+				.direccion(user.getDireccion())
+				.dni(user.getDni())
 				.password(user.getPassword())
 				.username(user.getUsername())
+				.telefono(user.getTelefono())
 				.build();
 		Set<Rol> roles = new HashSet<Rol>();
 		Optional<Rol> rol = rolRepository.findByNombre("ROLE_USER");
@@ -44,18 +50,24 @@ public class UserService {
 	}
 	
 	@Transactional
-	public UserRest getUserByUsername(String username) {
+	public UserRest getUserByUsername(String username){
 		return modelMapper.map(userRepository.findByUsername(username), UserRest.class);
 	}
 	
 	@Transactional
-	public UserRest getUserByEmail(String email) {
+	public UserRest getUserByEmail(String email){
 		return modelMapper.map(userRepository.findByEmail(email), UserRest.class);
 	}
 	
 	@Transactional
-	public void deleteUser(String username) {
+	public List<UserRest> getAllUsers() {
+		return userRepository.findAll().stream().map(user -> modelMapper.map(user, UserRest.class))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional
+	public void deleteUser(String username){
 		User user = userRepository.findByUsername(username);
-		userRepository.deleteById(user.getId());
+		userRepository.delete(user);
 	}
 }
