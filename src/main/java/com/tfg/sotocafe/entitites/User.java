@@ -47,4 +47,8 @@ public class User extends Person{
 		this.password = password;
 		this.roles = roles;
 	}
+	
+	public User() {
+		super();
+	}
 }

@@ -16,6 +16,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Person implements Serializable{
 
+
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
@@ -33,5 +34,8 @@ public class Person implements Serializable{
 	
 	@NotEmpty
 	private String email;
+
+	public Person() {
+	}
 
 }

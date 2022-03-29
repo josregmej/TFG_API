@@ -28,4 +28,7 @@ public class EmpleadoRest extends PersonRest{
 		this.salario = salario;
 	}
 	
+	public EmpleadoRest() {
+		super();
+	}
 }

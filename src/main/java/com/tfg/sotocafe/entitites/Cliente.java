@@ -30,5 +30,9 @@ public class Cliente extends Person{
 		this.id = id;
 		this.tieneIVA = iva;
 	}
+	
+	public Cliente() {
+		super();
+	}
 
 }

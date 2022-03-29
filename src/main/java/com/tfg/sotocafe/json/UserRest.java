@@ -22,4 +22,7 @@ public class UserRest extends PersonRest{
 		this.password = password;
 	}
 
+	public UserRest() {
+		super();
+	}
 }

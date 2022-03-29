@@ -37,4 +37,7 @@ public class Empleado extends Person{
 		this.salario = salario;
 	}
 
+	public Empleado() {
+		super();
+	}
 }

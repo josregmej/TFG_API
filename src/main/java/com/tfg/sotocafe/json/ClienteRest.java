@@ -21,4 +21,8 @@ public class ClienteRest extends PersonRest{
 		this.id = id;
 		this.tieneIVA = tieneIva;
 	}
+	
+	public ClienteRest() {
+		super();
+	}
 }

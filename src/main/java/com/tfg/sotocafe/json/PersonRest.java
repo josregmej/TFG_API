@@ -19,4 +19,8 @@ public class PersonRest implements Serializable{
 	private String telefono;
 	private String email;
 	
+	public PersonRest() {
+
+	}
+	
 }
