@@ -1,41 +1,25 @@
 package com.tfg.sotocafe.json;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Builder
 @Data
-public class UserRest implements Serializable{/**
-	 * 
-	 */
+@EqualsAndHashCode(callSuper = false)
+public class UserRest extends PersonRest{
+	 
 	private static final long serialVersionUID = 1L;
-	
 	private String username;
-	private String nombre;
 	private String password;
-	private String dni;
-	private String direccion;
-	private String telefono;
-	private String email;
 	
-	public UserRest(String nombre, String username, String password, String dni, String direccion,
-			String telefono, String email) {
-		super();
-		this.nombre = nombre;
+	@Builder
+	public UserRest(String nombre, String dni, String direccion, String telefono, String email, String username, String password) {
+		super(nombre,dni,direccion,telefono,email);
 		this.username = username;
 		this.password = password;
-		this.dni = dni;
-		this.direccion = direccion;
-		this.telefono = telefono;
-		this.email = email;
-	}
-	public UserRest() {
-		super();
 	}
 
 }
