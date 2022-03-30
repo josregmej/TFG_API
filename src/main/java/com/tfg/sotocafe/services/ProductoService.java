@@ -1,11 +1,11 @@
 package com.tfg.sotocafe.services;
 
-import java.util.logging.Logger;
 
 import com.tfg.sotocafe.entitites.Producto;
 import com.tfg.sotocafe.json.ProductoRest;
 import com.tfg.sotocafe.repositories.ProductoRepository;
 
+import org.jboss.logging.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -19,16 +19,29 @@ public class ProductoService{
     private ProductoRepository productoRepository;
 
     private ModelMapper modelMapper = new ModelMapper();
+    
+    private static Logger LOG = Logger.getLogger("com.tfg.sotocafe.services");
 
     @Transactional
 	public ProductoRest saveProducto(ProductoRest producto) throws DataAccessException {
+    	String nombre = producto.getNombre();
+    	Producto rep = productoRepository.findByNombre(nombre);
+		if(producto.getStockseguridad()>producto.getCantidadalmacen()) {
+			LOG.error("La cantidad del almacén debe ser superior o igual al stock de seguridad");
+		}
+		if(producto.getPrecio()<0) {
+			LOG.error("El precio no puede ser negativo");
+		}
 		Producto newProducto = 
-        Producto.builder().nombre(producto.getNombre())
-        .precio(producto.getPrecio())
-        .cantidadalmacen(producto.getCantidadalmacen())
-        .stockseguridad(producto.getStockseguridad())
-        .fechacaducidad(producto.getFechacaducidad())
-        .build();
+		        Producto.builder().nombre(producto.getNombre())
+		        .precio(producto.getPrecio())
+		        .cantidadalmacen(producto.getCantidadalmacen())
+		        .stockseguridad(producto.getStockseguridad())
+		        .fechacaducidad(producto.getFechacaducidad())
+		        .build();
+		if(rep.getNombre().equals(newProducto.getNombre())) {
+			LOG.error("No puede haber productos repetidos");
+		}
         productoRepository.save(newProducto);
 		return modelMapper.map(newProducto, ProductoRest.class);
 	}
