@@ -28,6 +28,7 @@ public class Producto implements Serializable{
     private Double precio;
     private Integer cantidadalmacen;
     private Integer stockseguridad;
+    private Boolean cercaStock;
     private Date fechacaducidad;
 
     public Producto(){
@@ -35,7 +36,7 @@ public class Producto implements Serializable{
     }
 
     public Producto(Long id, String nombre, Double precio,
-    Integer cantidadalmacen, Integer stockseguridad,
+    Integer cantidadalmacen, Integer stockseguridad, Boolean cercaStock,
     Date fechacaducidad) {
         super();
         this.id = id;
@@ -43,6 +44,7 @@ public class Producto implements Serializable{
         this.precio = precio;
         this.cantidadalmacen = cantidadalmacen;
         this.stockseguridad = stockseguridad;
+        this.cercaStock = cercaStock;
         this.fechacaducidad = fechacaducidad;
     
     }

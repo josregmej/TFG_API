@@ -35,15 +35,6 @@ public class ProductoServiceTests {
     @Transactional
     void testFindProductoByNombre() {
 		ProductoRest producto = this.productoService.getProductoByNombre("mermelada");
-		System.out.println("==============================================================================================================="+producto);
 		assertEquals(producto, productoRest);
 	}
-/*	
- * Arreglar test error problema con el ProductoRest
-	@Test
-    @Transactional
-    void testFindProductoByNombreError() {
-		assertEquals(true, true);
-	}
-*/
 }

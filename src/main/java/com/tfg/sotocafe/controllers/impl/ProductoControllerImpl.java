@@ -42,7 +42,7 @@ public class ProductoControllerImpl implements ProductoController{
 
     @Override
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping(value = "/name?={nombre}/delete",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{nombre}/delete",produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteProductoByNombre(@PathVariable String nombre) {
         productoService.deleteProductoByNombre(nombre);
         

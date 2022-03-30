@@ -37,10 +37,14 @@ public class ProductoService{
 		        .precio(producto.getPrecio())
 		        .cantidadalmacen(producto.getCantidadalmacen())
 		        .stockseguridad(producto.getStockseguridad())
+		        .cercaStock(false)
 		        .fechacaducidad(producto.getFechacaducidad())
 		        .build();
 		if(rep.getNombre().equals(newProducto.getNombre())) {
 			LOG.error("No puede haber productos repetidos");
+		}
+		if(newProducto.getCantidadalmacen()>=newProducto.getStockseguridad()+5) {
+			newProducto.setCercaStock(true);
 		}
         productoRepository.save(newProducto);
 		return modelMapper.map(newProducto, ProductoRest.class);
