@@ -1,5 +1,6 @@
 package com.tfg.sotocafe.service.tests;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -45,6 +46,8 @@ public class UserServiceTest {
     void testFindUserByUsername() {
 		String username = rest.getUsername();
 		UserRest user1 = this.userService.getUserByUsername(username);
+		assertNotNull(username);
+		assertNotNull(user1);
 		assertEquals(rest.getUsername(), user1.getUsername());
 		assertEquals(rest.getNombre(), user1.getNombre());
 		assertEquals(rest.getDireccion(), user1.getDireccion());
@@ -58,6 +61,8 @@ public class UserServiceTest {
     void testFindUserByEmail() {
 		String email = rest.getEmail();
 		UserRest user1 = this.userService.getUserByEmail(email);
+		assertNotNull(user1);
+		assertNotNull(email);
 		assertEquals(rest.getUsername(),user1.getUsername());
 		assertEquals(rest.getNombre(), user1.getNombre());
 		assertEquals(rest.getDireccion(), user1.getDireccion());
@@ -82,5 +87,13 @@ public class UserServiceTest {
 		assertEquals(1,usuarios.size());
 		assertEquals(2,usuariosGuard.size());
 		assertEquals(usuariosDesp.size(),usuarios.size());
+	}
+	
+	@Test
+    @Transactional
+    void testGetAllUsers() {
+		List<UserRest> users = this.userService.getAllUsers();
+		assertNotNull(users);
+		assertEquals(1,users.size());
 	}
 }
