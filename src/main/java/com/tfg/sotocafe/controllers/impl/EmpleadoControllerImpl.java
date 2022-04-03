@@ -28,6 +28,7 @@ public class EmpleadoControllerImpl implements EmpleadoController{
 	private EmpleadoService empleadoService;
 	
 	@Override
+	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(value="/create",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<EmpleadoRest> createEmpleado(@RequestBody final EmpleadoRest empleado) {
 		return new ResponseEntity<>(empleadoService.saveEmpleado(empleado), HttpStatus.CREATED);

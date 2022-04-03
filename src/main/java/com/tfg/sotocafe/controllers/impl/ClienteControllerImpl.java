@@ -28,6 +28,7 @@ public class ClienteControllerImpl implements ClienteController{
 	private ClienteService clienteService;
 	
 	@Override
+	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(value = "/create",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ClienteRest> createCliente(@RequestBody final ClienteRest cliente) {
 		return new ResponseEntity<>(clienteService.savecliente(cliente), HttpStatus.CREATED);

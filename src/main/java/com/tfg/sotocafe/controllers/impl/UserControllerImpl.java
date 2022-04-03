@@ -27,6 +27,7 @@ public class UserControllerImpl implements UserController{
 	private UserService userService;
 	
 	@Override
+	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserRest> createUser(
 			@RequestBody final UserRest user
