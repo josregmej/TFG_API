@@ -22,11 +22,9 @@ public class ProductoRest implements Serializable {
     private Integer cantidadalmacen;
     private Integer stockseguridad;
     private Boolean cercaStock;
-    private Date fechacaducidad;
     
     public ProductoRest(Long id, String nombre, Double precio,
-    Integer cantidadalmacen, Integer stockseguridad, Boolean cercaStock,
-    Date fechacaducidad) {
+    Integer cantidadalmacen, Integer stockseguridad, Boolean cercaStock) {
         super();
         this.id = id;
         this.nombre = nombre;
@@ -34,7 +32,6 @@ public class ProductoRest implements Serializable {
         this.cantidadalmacen = cantidadalmacen;
         this.stockseguridad = stockseguridad;
         this.cercaStock = cercaStock;
-        this.fechacaducidad = fechacaducidad;
     }
 
     public ProductoRest(){

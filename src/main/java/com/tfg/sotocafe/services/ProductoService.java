@@ -38,7 +38,6 @@ public class ProductoService{
 		        .cantidadalmacen(producto.getCantidadalmacen())
 		        .stockseguridad(producto.getStockseguridad())
 		        .cercaStock(false)
-		        .fechacaducidad(producto.getFechacaducidad())
 		        .build();
 		if(rep.getNombre().equals(newProducto.getNombre())) {
 			LOG.error("No puede haber productos repetidos");
