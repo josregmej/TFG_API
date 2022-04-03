@@ -1,5 +1,7 @@
 package com.tfg.sotocafe.controllers.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,5 +46,12 @@ public class UserControllerImpl implements UserController{
 	@DeleteMapping(value = "/{username}/delete",produces = MediaType.APPLICATION_JSON_VALUE)
 	public void deleteUser(@PathVariable String username) {
 		userService.deleteUser(username);
+	}
+
+	@Override
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<UserRest>> getUsers() {
+		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 	}
 }

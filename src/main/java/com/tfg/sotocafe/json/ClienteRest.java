@@ -16,10 +16,10 @@ public class ClienteRest extends PersonRest{
 	private Boolean tieneIVA;
 
 	@Builder
-	public ClienteRest(String nombre, String dni, String direccion, String telefono, String email, Long id, Boolean tieneIva) {
+	public ClienteRest(String nombre, String dni, String direccion, String telefono, String email, Long id, Boolean iva) {
 		super(nombre,dni,direccion,telefono,email);
 		this.id = id;
-		this.tieneIVA = tieneIva;
+		this.tieneIVA = iva;
 	}
 	
 	public ClienteRest() {
