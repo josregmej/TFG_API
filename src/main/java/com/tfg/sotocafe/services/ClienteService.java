@@ -28,7 +28,7 @@ public class ClienteService {
 				.direccion(cliente.getDireccion())
 				.dni(cliente.getDni())
 				.telefono(cliente.getTelefono())
-				.iva(false)
+				.iva(cliente.getTieneIVA())
 				.build();
 		clienteRepository.save(newcliente);
 		return modelMapper.map(newcliente, ClienteRest.class);
