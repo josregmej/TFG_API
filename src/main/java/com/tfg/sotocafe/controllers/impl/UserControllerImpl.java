@@ -20,7 +20,7 @@ import com.tfg.sotocafe.json.UserRest;
 import com.tfg.sotocafe.services.UserService;
 
 @RestController
-@RequestMapping("/admin/users")
+@RequestMapping("/api/admin/users")
 public class UserControllerImpl implements UserController{
 
 	@Autowired

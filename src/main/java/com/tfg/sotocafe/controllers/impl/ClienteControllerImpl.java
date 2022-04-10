@@ -21,7 +21,7 @@ import com.tfg.sotocafe.json.ClienteRest;
 import com.tfg.sotocafe.services.ClienteService;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/api/clientes")
 public class ClienteControllerImpl implements ClienteController{
 
 	@Autowired

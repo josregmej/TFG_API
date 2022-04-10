@@ -21,7 +21,7 @@ import com.tfg.sotocafe.json.EmpleadoRest;
 import com.tfg.sotocafe.services.EmpleadoService;
 
 @RestController
-@RequestMapping("/empleados")
+@RequestMapping("/api/empleados")
 public class EmpleadoControllerImpl implements EmpleadoController{
 
 	@Autowired
