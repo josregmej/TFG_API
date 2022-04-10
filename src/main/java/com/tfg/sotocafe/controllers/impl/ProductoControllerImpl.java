@@ -4,6 +4,8 @@ import com.tfg.sotocafe.controllers.ProductoController;
 import com.tfg.sotocafe.json.ProductoRest;
 import com.tfg.sotocafe.services.ProductoService;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,14 +20,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("api/products")
 public class ProductoControllerImpl implements ProductoController{
 
     @Autowired
     private ProductoService productoService;
 
     @Override
-    @PostMapping(produces=MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/create",produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductoRest> createProducto(
         @RequestBody final ProductoRest producto) {
         return 
@@ -47,4 +49,9 @@ public class ProductoControllerImpl implements ProductoController{
         productoService.deleteProductoByNombre(nombre);
         
     }
+
+	@Override
+	public ResponseEntity<List<ProductoRest>> getProductos() {
+		return new ResponseEntity<>(productoService.getAllProductos(), HttpStatus.OK);
+	}
 }

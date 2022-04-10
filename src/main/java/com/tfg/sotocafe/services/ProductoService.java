@@ -5,6 +5,9 @@ import com.tfg.sotocafe.entitites.Producto;
 import com.tfg.sotocafe.json.ProductoRest;
 import com.tfg.sotocafe.repositories.ProductoRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.jboss.logging.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +50,12 @@ public class ProductoService{
 		}
         productoRepository.save(newProducto);
 		return modelMapper.map(newProducto, ProductoRest.class);
+	}
+    
+    @Transactional
+	public List<ProductoRest> getAllProductos() {
+		return productoRepository.findAll().stream().map(producto -> modelMapper.map(producto, ProductoRest.class))
+				.collect(Collectors.toList());
 	}
 
     @Transactional
