@@ -27,6 +27,7 @@ public class ProductoControllerImpl implements ProductoController{
     private ProductoService productoService;
 
     @Override
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value="/create",produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductoRest> createProducto(
         @RequestBody final ProductoRest producto) {
@@ -51,6 +52,8 @@ public class ProductoControllerImpl implements ProductoController{
     }
 
 	@Override
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProductoRest>> getProductos() {
 		return new ResponseEntity<>(productoService.getAllProductos(), HttpStatus.OK);
 	}
