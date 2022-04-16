@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -35,6 +36,13 @@ public class ProductoControllerImpl implements ProductoController{
         new ResponseEntity<>(productoService.saveProducto(producto), HttpStatus.CREATED);
     }
 
+    @Override
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping(value = "/{nombre}/edit",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ProductoRest> editProducto(@PathVariable String nombre, @RequestBody final ProductoRest producto) {
+		return new ResponseEntity<>(productoService.editProducto(nombre, producto), HttpStatus.OK);
+	}
+    
     @Override
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{nombre}",produces = MediaType.APPLICATION_JSON_VALUE)

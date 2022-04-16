@@ -53,6 +53,16 @@ public class ProductoService{
 	}
     
     @Transactional
+    public ProductoRest editProducto(String nombre, ProductoRest productoRest) {
+    	Producto producto = productoRepository.findByNombre(nombre);
+    	producto.setNombre(productoRest.getNombre());
+    	producto.setPrecio(productoRest.getPrecio());
+    	producto.setCantidadalmacen(productoRest.getCantidadalmacen());
+    	producto.setStockseguridad(productoRest.getStockseguridad());
+    	productoRepository.save(producto);
+		return modelMapper.map(producto, ProductoRest.class);
+    }
+    @Transactional
 	public List<ProductoRest> getAllProductos() {
 		return productoRepository.findAll().stream().map(producto -> modelMapper.map(producto, ProductoRest.class))
 				.collect(Collectors.toList());

@@ -12,4 +12,6 @@ public interface ProductoController {
 	public ResponseEntity<ProductoRest> getProductoByNombre(String nombre);
     public void deleteProductoByNombre(String nombre);
     public ResponseEntity<List<ProductoRest>> getProductos();
+    public ResponseEntity<ProductoRest> editProducto(String nombre, ProductoRest producto);
+    
 }
