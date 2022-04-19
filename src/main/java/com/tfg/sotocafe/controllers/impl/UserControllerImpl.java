@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -54,5 +55,12 @@ public class UserControllerImpl implements UserController{
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<UserRest>> getUsers() {
 		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+	}
+
+	@Override
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping(value = "/{username}/edit",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserRest> modifyUser(@RequestBody final UserRest user, @PathVariable String username) {
+		return new ResponseEntity<>(userService.modifyUser(user, username),HttpStatus.OK);
 	}
 }

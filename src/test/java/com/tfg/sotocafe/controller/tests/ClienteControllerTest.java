@@ -34,7 +34,7 @@ public class ClienteControllerTest {
 	
     @Test
     public void testGetClientes() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/clientes";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/clientes";
 		URI uri = new URI(baseUrl);
     	ResponseEntity<String> response = this.restTemplate.getForEntity(uri, String.class);
     	
@@ -48,7 +48,7 @@ public class ClienteControllerTest {
     
     @Test
     public void testGetClienteById() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/clientes";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/clientes";
 		URI uri = new URI(baseUrl+"/1");
     	ResponseEntity<String> response = this.restTemplate.getForEntity(uri, String.class);
     	
@@ -67,7 +67,7 @@ public class ClienteControllerTest {
     
     @Test
     public void createClienteTest() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/clientes";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/clientes";
 		URI uri = new URI(baseUrl+"/create");
 		ClienteRest cliente = ClienteRest.builder().email("email@email.com").dni("53454323F")
 				.nombre("UsuarioPrueba1").telefono("938494392").direccion("Calle Calle").iva(true).build();
@@ -90,7 +90,7 @@ public class ClienteControllerTest {
     @Test
     public void deleteClienteTest() throws IOException, URISyntaxException {
     	//base URL del endpoint
-		final String baseUrl = "http://localhost:"+localServerPort+"/clientes";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/clientes";
 		URI uri = new URI(baseUrl+"/7/delete");
 		
 		//Borramos el cliente
@@ -108,7 +108,7 @@ public class ClienteControllerTest {
 	public void modifyClienteTest() throws URISyntaxException, IOException{
 		
 		//base URL del endpoint
-    	final String baseUrl = "http://localhost:"+localServerPort+"/clientes";
+    	final String baseUrl = "http://localhost:"+localServerPort+"/api/clientes";
 		URI uri = new URI(baseUrl+"/1/edit");
 		
 		//Creamos el cliente con los valores a modificar.

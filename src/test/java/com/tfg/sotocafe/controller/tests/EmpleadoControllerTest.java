@@ -34,7 +34,7 @@ public class EmpleadoControllerTest {
 	
     @Test
     public void testGetEmpleados() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/empleados";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/empleados";
 		URI uri = new URI(baseUrl);
     	ResponseEntity<String> response = this.restTemplate.getForEntity(uri, String.class);
     	
@@ -48,7 +48,7 @@ public class EmpleadoControllerTest {
     
     @Test
     public void testGetEmpleadoById() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/empleados";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/empleados";
 		URI uri = new URI(baseUrl+"/1");
     	ResponseEntity<String> response = this.restTemplate.getForEntity(uri, String.class);
     	
@@ -70,7 +70,7 @@ public class EmpleadoControllerTest {
     
     @Test
     public void createEmpleadoTest() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/empleados";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/empleados";
 		URI uri = new URI(baseUrl+"/create");
 		EmpleadoRest empleado = EmpleadoRest.builder().email("email@email.com").dni("53454323F")
 				.nombre("UsuarioPrueba1").telefono("938494392").direccion("Calle Calle")
@@ -97,7 +97,7 @@ public class EmpleadoControllerTest {
     @Test
     public void deleteEmpleadoTest() throws IOException, URISyntaxException {
     	//base URL del endpoint
-		final String baseUrl = "http://localhost:"+localServerPort+"/empleados";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/empleados";
 		URI uri = new URI(baseUrl+"/4/delete");
 		
 		//Borramos el empleado
@@ -115,7 +115,7 @@ public class EmpleadoControllerTest {
 	public void modifyEmpleadoTest() throws URISyntaxException, IOException{
 		
 		//base URL del endpoint
-    	final String baseUrl = "http://localhost:"+localServerPort+"/empleados";
+    	final String baseUrl = "http://localhost:"+localServerPort+"/api/empleados";
 		URI uri = new URI(baseUrl+"/1/edit");
 		
 		//Creamos el empleado con los valores a modificar.

@@ -12,4 +12,5 @@ public interface UserController {
 	public ResponseEntity<UserRest> getUserByUsername(String username);
 	public void deleteUser(String username);
 	public ResponseEntity<List<UserRest>> getUsers();
+	public ResponseEntity<UserRest> modifyUser(UserRest user, String username);
 }

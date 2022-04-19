@@ -96,4 +96,23 @@ public class UserServiceTest {
 		assertNotNull(users);
 		assertEquals(1,users.size());
 	}
+	
+	@Test
+    @Transactional
+    void testModifyUser() {
+		UserRest user1 = UserRest.builder().email("email2@email.com").dni("53454323G")
+				.nombre("UsuarioPrueba2").telefono("938494393").direccion("Calle Calle")
+				.password("PedritoElDuende12334").username("pedritoto").build();
+		UserRest userMod = this.userService.saveUser(user1);
+		user = this.userService.modifyUser(userMod,userMod.getUsername());
+		assertNotNull(userMod);
+		assertNotNull(user);
+		assertEquals(user.getNombre(), user1.getNombre());
+		assertEquals(user.getDireccion(), user1.getDireccion());
+		assertEquals(user.getDni(), user1.getDni());
+		assertEquals(user.getEmail(), user1.getEmail());
+		assertEquals(user.getTelefono(), user1.getTelefono());
+		assertEquals(user.getPassword(), user1.getPassword());
+		assertEquals(user.getUsername(), user1.getUsername());
+	}
 }
