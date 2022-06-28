@@ -34,7 +34,7 @@ public class UserControllerTest {
 	
     @Test
     public void testGetUsers() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/admin/users";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/admin/users";
 		URI uri = new URI(baseUrl);
     	ResponseEntity<String> response = this.restTemplate.getForEntity(uri, String.class);
     	
@@ -48,7 +48,7 @@ public class UserControllerTest {
     
     @Test
     public void testGetUserByUsername() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/admin/users";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/admin/users";
 		URI uri = new URI(baseUrl+"/pedcarmor");
     	ResponseEntity<String> response = this.restTemplate.getForEntity(uri, String.class);
     	
@@ -67,7 +67,7 @@ public class UserControllerTest {
     
     @Test
     public void createUserTest() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/admin/users";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/admin/users";
 		URI uri = new URI(baseUrl);
 		UserRest user = UserRest.builder().username("user1").email("email@email.com").dni("53454323F")
 				.nombre("UsuarioPrueba1").telefono("938494392").direccion("Calle Calle").password("Pass1234").build();
@@ -88,7 +88,7 @@ public class UserControllerTest {
     
     @Test
     public void deleteUserTest() throws IOException, URISyntaxException {
-		final String baseUrl = "http://localhost:"+localServerPort+"/admin/users";
+		final String baseUrl = "http://localhost:"+localServerPort+"/api/admin/users";
 		URI uri = new URI(baseUrl+"/pedcarmor/delete");
     	this.restTemplate.delete(uri);
     	
@@ -97,4 +97,39 @@ public class UserControllerTest {
  
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+    
+    @Test
+   	public void modifyUserTest() throws URISyntaxException, IOException{
+   		
+   		//base URL del endpoint
+       	final String baseUrl = "http://localhost:"+localServerPort+"/api/admin/users";
+   		URI uri = new URI(baseUrl+"/user1/edit");
+   		
+   		//Creamos el empleado con los valores a modificar.
+   		UserRest user = UserRest.builder().email("email2@email.com").dni("53454323S")
+   				.nombre("Usuario modificado").telefono("938494392").direccion("Calle Modificada")
+   				.password("PedritoElDuende1234").username("user1").build();
+   		
+   		//Realizamos la operación put pasandole el actor con sus datos modificados y la url.
+   		this.restTemplate.put(uri, user);
+   		
+   		URI uri2 = new URI(baseUrl+"/user1");
+   		//Obtenemos el empleado que acabamos de modificar y a partir de la respuesta comprobamos que se ha modificado.
+   		ResponseEntity<String> response = this.restTemplate.getForEntity(uri2,
+   				String.class);
+   		
+   		//Ahora leemos el cuerpo de la respuesta, que es donde están contenidos los valores del objeto.
+   		ObjectMapper mapper = new ObjectMapper();
+   		JsonNode data = mapper.readTree(response.getBody());
+   		
+   		//Comprobamos que el estado, y los valores son los esperados.
+   		assertEquals(HttpStatus.OK,response.getStatusCode());
+   		assertEquals("user1",data.get("username").asText());
+   		assertEquals("Usuario modificado",data.get("nombre").asText());
+   		assertEquals("53454323S",data.get("dni").asText());
+   		assertEquals("Calle Modificada",data.get("direccion").asText());
+   		assertEquals("938494392",data.get("telefono").asText());
+   		assertEquals("email2@email.com",data.get("email").asText());
+   		assertEquals("PedritoElDuende1234",data.get("password").asText());
+   	}
 }

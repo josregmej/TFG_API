@@ -70,4 +70,18 @@ public class UserService {
 		User user = userRepository.findByUsername(username);
 		userRepository.delete(user);
 	}
+	
+	@Transactional
+	public UserRest modifyUser(UserRest userRest, String username) {
+		User modUser = userRepository.findByUsername(username);
+		modUser.setDireccion(userRest.getDireccion());
+		modUser.setDni(userRest.getDni());
+		modUser.setEmail(userRest.getEmail());
+		modUser.setNombre(userRest.getNombre());
+		modUser.setPassword(userRest.getPassword());
+		modUser.setTelefono(userRest.getTelefono());
+		modUser.setUsername(userRest.getUsername());
+		userRepository.save(modUser);
+		return modelMapper.map(modUser, UserRest.class);
+	}
 }
