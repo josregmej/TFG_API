@@ -12,14 +12,16 @@ import lombok.EqualsAndHashCode;
 public class UserRest extends PersonRest{
 	 
 	private static final long serialVersionUID = 1L;
+	private Long id;
 	private String username;
 	private String password;
 	
 	@Builder
-	public UserRest(String nombre, String dni, String direccion, String telefono, String email, String username, String password) {
+	public UserRest(String nombre, String dni, String direccion, String telefono, String email, Long id,String username, String password) {
 		super(nombre,dni,direccion,telefono,email);
 		this.username = username;
 		this.password = password;
+		this.id=id;
 	}
 
 	public UserRest() {

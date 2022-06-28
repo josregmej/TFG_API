@@ -16,7 +16,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class Person implements Serializable{
 
-
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
@@ -29,7 +28,7 @@ public class Person implements Serializable{
 	private String direccion;
 	
 	@NotEmpty
-	@Pattern(regexp="\\d{9}",message = "Debe contener 9 números")
+	@Pattern(regexp="^[0-9]{9}$",message = "Debe contener 9 números")
 	private String telefono;
 	
 	@NotEmpty

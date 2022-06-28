@@ -56,6 +56,7 @@ public class UserControllerTest {
 		JsonNode data = mapper.readTree(response.getBody());
 		
 		assertEquals(HttpStatus.OK,response.getStatusCode());
+		assertEquals("1",data.get("id").asText());
 		assertEquals("pedcarmor",data.get("username").asText());
 		assertEquals("Pedro Pablo",data.get("nombre").asText());
 		assertEquals("53772897R",data.get("dni").asText());
@@ -69,7 +70,7 @@ public class UserControllerTest {
     public void createUserTest() throws IOException, URISyntaxException {
 		final String baseUrl = "http://localhost:"+localServerPort+"/api/admin/users";
 		URI uri = new URI(baseUrl);
-		UserRest user = UserRest.builder().username("user1").email("email@email.com").dni("53454323F")
+		UserRest user = UserRest.builder().id(4l).username("user1").email("email@email.com").dni("53454323F")
 				.nombre("UsuarioPrueba1").telefono("938494392").direccion("Calle Calle").password("Pass1234").build();
     	ResponseEntity<String> response = this.restTemplate.postForEntity(uri, user,String.class);
     	
@@ -77,6 +78,7 @@ public class UserControllerTest {
 		JsonNode data = mapper.readTree(response.getBody());
 		
 		assertEquals(HttpStatus.CREATED,response.getStatusCode());
+		assertEquals("4",data.get("id").asText());
 		assertEquals("user1",data.get("username").asText());
 		assertEquals("UsuarioPrueba1",data.get("nombre").asText());
 		assertEquals("53454323F",data.get("dni").asText());
@@ -105,16 +107,16 @@ public class UserControllerTest {
        	final String baseUrl = "http://localhost:"+localServerPort+"/api/admin/users";
    		URI uri = new URI(baseUrl+"/user1/edit");
    		
-   		//Creamos el empleado con los valores a modificar.
+   		//Creamos el usuario con los valores a modificar.
    		UserRest user = UserRest.builder().email("email2@email.com").dni("53454323S")
    				.nombre("Usuario modificado").telefono("938494392").direccion("Calle Modificada")
-   				.password("PedritoElDuende1234").username("user1").build();
+   				.password("PedritoElDuende1234").username("user1").id(5l).build();
    		
    		//Realizamos la operación put pasandole el actor con sus datos modificados y la url.
    		this.restTemplate.put(uri, user);
    		
    		URI uri2 = new URI(baseUrl+"/user1");
-   		//Obtenemos el empleado que acabamos de modificar y a partir de la respuesta comprobamos que se ha modificado.
+   		//Obtenemos el usuario que acabamos de modificar y a partir de la respuesta comprobamos que se ha modificado.
    		ResponseEntity<String> response = this.restTemplate.getForEntity(uri2,
    				String.class);
    		
@@ -124,6 +126,7 @@ public class UserControllerTest {
    		
    		//Comprobamos que el estado, y los valores son los esperados.
    		assertEquals(HttpStatus.OK,response.getStatusCode());
+   		assertEquals("4",data.get("id").asText());
    		assertEquals("user1",data.get("username").asText());
    		assertEquals("Usuario modificado",data.get("nombre").asText());
    		assertEquals("53454323S",data.get("dni").asText());

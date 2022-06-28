@@ -1,13 +1,12 @@
 package com.tfg.sotocafe.services;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +26,9 @@ public class UserService {
 	@Autowired
 	private RolRepository rolRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	private ModelMapper modelMapper = new ModelMapper();
 	
 	@Transactional
@@ -36,15 +38,13 @@ public class UserService {
 				.email(user.getEmail())
 				.direccion(user.getDireccion())
 				.dni(user.getDni())
-				.password(user.getPassword())
+				.password(passwordEncoder.encode(user.getPassword()))
 				.username(user.getUsername())
 				.telefono(user.getTelefono())
+				.id(user.getId())
 				.build();
-		Set<Rol> roles = new HashSet<Rol>();
-		Optional<Rol> rol = rolRepository.findByNombre("ROLE_USER");
-		roles.add(rol.get());
-		rolRepository.save(rol.get());
-		newUser.setRoles(roles);
+		Rol rol = rolRepository.findByNombre("ROLE_USER").get();
+		newUser.setRoles(Collections.singleton(rol));
 		userRepository.save(newUser);
 		return modelMapper.map(newUser, UserRest.class);
 	}
@@ -81,6 +81,7 @@ public class UserService {
 		modUser.setPassword(userRest.getPassword());
 		modUser.setTelefono(userRest.getTelefono());
 		modUser.setUsername(userRest.getUsername());
+		modUser.setId(userRest.getId());
 		userRepository.save(modUser);
 		return modelMapper.map(modUser, UserRest.class);
 	}

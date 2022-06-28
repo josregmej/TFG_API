@@ -34,8 +34,8 @@ public class UserServiceTest {
 	@BeforeEach
 	public void setUp() {
 		user = UserRest.builder().username("user1").email("email@email.com").dni("53454323F")
-				.nombre("UsuarioPrueba1").telefono("938494392").direccion("Calle Calle").password("Pass1234").build();
-		rol = Rol.builder().id(1l).nombre("ROLE_USER").build();
+				.nombre("UsuarioPrueba1").telefono("938494392").direccion("Calle Calle").password("Pass1234").id(1l).build();
+		rol = Rol.builder().id(1l).nombre("ROLE_ADMIN").build();
 		
 		this.rolService.saveRol(rol);
 		rest = this.userService.saveUser(user);
@@ -49,6 +49,7 @@ public class UserServiceTest {
 		assertNotNull(username);
 		assertNotNull(user1);
 		assertEquals(rest.getUsername(), user1.getUsername());
+		assertEquals(rest.getId(), user1.getId());
 		assertEquals(rest.getNombre(), user1.getNombre());
 		assertEquals(rest.getDireccion(), user1.getDireccion());
 		assertEquals(rest.getDni(), user1.getDni());
@@ -64,6 +65,7 @@ public class UserServiceTest {
 		assertNotNull(user1);
 		assertNotNull(email);
 		assertEquals(rest.getUsername(),user1.getUsername());
+		assertEquals(rest.getId(), user1.getId());
 		assertEquals(rest.getNombre(), user1.getNombre());
 		assertEquals(rest.getDireccion(), user1.getDireccion());
 		assertEquals(rest.getDni(), user1.getDni());
@@ -77,7 +79,7 @@ public class UserServiceTest {
 		List<UserRest> usuarios = this.userService.getAllUsers();
 		
 		UserRest userElm = UserRest.builder().username("user2").email("email2@email.com").dni("53454323G")
-				.nombre("UsuarioPrueba2").telefono("938494393").direccion("Calle Calle").password("Pass1234").build();
+				.nombre("UsuarioPrueba2").telefono("938494393").direccion("Calle Calle").password("Pass1234").id(1l).build();
 		UserRest userGuard = this.userService.saveUser(userElm);
 		List<UserRest> usuariosGuard = this.userService.getAllUsers();
 		
@@ -102,12 +104,13 @@ public class UserServiceTest {
     void testModifyUser() {
 		UserRest user1 = UserRest.builder().email("email2@email.com").dni("53454323G")
 				.nombre("UsuarioPrueba2").telefono("938494393").direccion("Calle Calle")
-				.password("PedritoElDuende12334").username("pedritoto").build();
+				.password("PedritoElDuende12334").username("pedritoto").id(1l).build();
 		UserRest userMod = this.userService.saveUser(user1);
 		user = this.userService.modifyUser(userMod,userMod.getUsername());
 		assertNotNull(userMod);
 		assertNotNull(user);
 		assertEquals(user.getNombre(), user1.getNombre());
+		assertEquals(rest.getId(), user1.getId());
 		assertEquals(user.getDireccion(), user1.getDireccion());
 		assertEquals(user.getDni(), user1.getDni());
 		assertEquals(user.getEmail(), user1.getEmail());
