@@ -1,12 +1,13 @@
 package com.tfg.sotocafe.entitites;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Builder;
@@ -29,6 +30,10 @@ public class Producto implements Serializable{
     private Integer cantidadalmacen;
     private Integer stockseguridad;
     private Boolean cercaStock;
+    
+    @ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
     public Producto(){
         super();
@@ -55,5 +60,18 @@ public class Producto implements Serializable{
         this.cantidadalmacen = cantidadalmacen;
         this.stockseguridad = stockseguridad;
     
+    }
+    
+    public Producto(Long id, String nombre, Double precio,
+    Integer cantidadalmacen, Integer stockseguridad, Boolean cercaStock, User user) {
+    	super();
+    	this.id = id;
+    	this.nombre = nombre;
+    	this.precio = precio;
+    	this.cantidadalmacen = cantidadalmacen;
+    	this.stockseguridad = stockseguridad;
+    	this.cercaStock = cercaStock;
+    	this.user = user;
+    	    
     }
 }

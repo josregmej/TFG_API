@@ -40,7 +40,8 @@ public class ProductoControllerImpl implements ProductoController{
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(value = "/{nombre}/edit",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductoRest> editProducto(@PathVariable String nombre, @RequestBody final ProductoRest producto) {
-		return new ResponseEntity<>(productoService.editProducto(nombre, producto), HttpStatus.OK);
+    	this.productoService.editProducto(nombre, producto);
+    	return new ResponseEntity<>(productoService.getProductoByNombre(nombre), HttpStatus.OK);
 	}
     
     @Override
