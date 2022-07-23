@@ -37,7 +37,7 @@ public class ProductoServiceTests {
 	@Test
     @Transactional
     void testFindProductoByNombre() {
-		ProductoRest producto = this.productoService.getProductoByNombre("mermelada");
+		ProductoRest producto = this.productoService.getProductoById(2L);
 		assertEquals(producto, productoRest);
 	}
 	
@@ -61,11 +61,11 @@ public class ProductoServiceTests {
 	
 		assertEquals(2, productos.size());
 		
-		this.productoService.deleteProductoByNombre(producto1.getNombre());
+		this.productoService.deleteProductoById(2L);
 		
 		assertEquals(1, productos.size());
 		
-		this.productoService.deleteProductoByNombre(producto2.getNombre());;
+		this.productoService.deleteProductoById(10L);
 		
 		assertEquals(0, productos.size());
 	}

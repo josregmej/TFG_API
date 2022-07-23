@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -33,6 +35,7 @@ public class Producto implements Serializable{
     
     @ManyToOne
 	@JoinColumn(name = "user_id")
+    @JsonIgnore
 	private User user;
 
     public Producto(){

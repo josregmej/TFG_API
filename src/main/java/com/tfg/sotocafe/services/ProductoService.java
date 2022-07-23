@@ -6,6 +6,7 @@ import com.tfg.sotocafe.json.ProductoRest;
 import com.tfg.sotocafe.repositories.ProductoRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.jboss.logging.Logger;
@@ -27,14 +28,6 @@ public class ProductoService{
 
     @Transactional
 	public ProductoRest saveProducto(ProductoRest producto) throws DataAccessException {
-    	String nombre = producto.getNombre();
-    	Producto rep = productoRepository.findByNombre(nombre);
-		if(producto.getStockseguridad()>producto.getCantidadalmacen()) {
-			LOG.error("La cantidad del almacén debe ser superior o igual al stock de seguridad");
-		}
-		if(producto.getPrecio()<0) {
-			LOG.error("El precio no puede ser negativo");
-		}
 		Producto newProducto = 
 		        Producto.builder().nombre(producto.getNombre())
 		        .precio(producto.getPrecio())
@@ -42,24 +35,19 @@ public class ProductoService{
 		        .stockseguridad(producto.getStockseguridad())
 		        .cercaStock(false)
 		        .build();
-		if(rep.getNombre().equals(newProducto.getNombre())) {
-			LOG.error("No puede haber productos repetidos");
-		}
-		if(newProducto.getCantidadalmacen()>=newProducto.getStockseguridad()+5) {
-			newProducto.setCercaStock(true);
-		}
         productoRepository.save(newProducto);
 		return modelMapper.map(newProducto, ProductoRest.class);
 	}
     
     @Transactional
-    public ProductoRest editProducto(String nombre, ProductoRest productoRest) {
-    	Producto producto = productoRepository.findByNombre(nombre);
+    public ProductoRest editProducto(Long id, ProductoRest productoRest) {
+    	Producto producto = productoRepository.getById(id);
     	producto.setNombre(productoRest.getNombre());
     	producto.setPrecio(productoRest.getPrecio());
     	producto.setCantidadalmacen(productoRest.getCantidadalmacen());
     	producto.setStockseguridad(productoRest.getStockseguridad());
     	productoRepository.save(producto);
+    	ProductoRest prodR = this.getProductoById(id);
 		return modelMapper.map(producto, ProductoRest.class);
     }
     @Transactional
@@ -69,14 +57,13 @@ public class ProductoService{
 	}
 
     @Transactional
-    public ProductoRest getProductoByNombre(String nombre){
-        return modelMapper.map(productoRepository.findByNombre(nombre), ProductoRest.class);
+    public ProductoRest getProductoById(Long id){
+        return modelMapper.map(productoRepository.getById(id), ProductoRest.class);
     }
 
     @Transactional
-    public void deleteProductoByNombre(String nombre){
-        Producto producto = productoRepository.findByNombre(nombre);
-        productoRepository.deleteById(producto.getId());
+    public void deleteProductoById(Long id){
+        productoRepository.deleteById(id);
         
     }
 }

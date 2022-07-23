@@ -38,10 +38,9 @@ public class ProductoRest implements Serializable {
         super();
     }
 
-    public ProductoRest(Long id, String nombre, Double precio,
+    public ProductoRest(String nombre, Double precio,
     Integer cantidadalmacen, Integer stockseguridad) {
         super();
-        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.cantidadalmacen = cantidadalmacen;
