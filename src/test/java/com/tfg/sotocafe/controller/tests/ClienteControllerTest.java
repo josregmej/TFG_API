@@ -43,7 +43,7 @@ public class ClienteControllerTest {
 				
 		//Comprobamos que el estado y el numero de usuarios son los esperados.
 		assertEquals(HttpStatus.OK,response.getStatusCode());
-		assertEquals(3,data.size());
+		assertEquals(12,data.size());
     }
     
     @Test

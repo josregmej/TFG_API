@@ -72,7 +72,7 @@ public class ClienteServiceTest {
     void testGetAllClientes() {
 		List<ClienteRest> clientes = this.clienteService.getAllClientes();
 		assertNotNull(clientes);
-		assertEquals(1,clientes.size());
+		assertEquals(12,clientes.size());
 	}
 	
 	@Test

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.sotocafe.controllers.AuthController;
 import com.tfg.sotocafe.dto.LoginDTO;
+import com.tfg.sotocafe.security.JWTAuthResponseDTO;
+import com.tfg.sotocafe.security.JwtTokenProvider;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -21,13 +23,18 @@ public class AuthControllerImpl implements AuthController{
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> authenticateUser(@RequestBody LoginDTO loginDTO){
+	public ResponseEntity<JWTAuthResponseDTO> authenticateUser(@RequestBody LoginDTO loginDTO){
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsernameOrEmail(), loginDTO.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return new ResponseEntity<>("Ha iniciado sesión con éxito",HttpStatus.OK);
+		
+		String token = jwtTokenProvider.generarToken(authentication);
+		
+		return ResponseEntity.ok(new JWTAuthResponseDTO(token));
 	}
-	
 }

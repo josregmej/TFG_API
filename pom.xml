@@ -48,7 +48,7 @@
 		<dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>0.7.5</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -92,6 +92,15 @@
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-validation</artifactId>
     	</dependency>
+    	
+    	<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+		<dependency>
+    		<groupId>io.jsonwebtoken</groupId>
+    		<artifactId>jjwt</artifactId>
+    		<version>0.9.1</version>
+		</dependency>
+
 
 	</dependencies>
 
